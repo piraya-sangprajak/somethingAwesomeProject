@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from os import path
+from os import path # os (operating system)
 from flask_login import LoginManager
 
 db = SQLAlchemy()
@@ -23,6 +23,7 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
 
+    # make sure models.py file runs before creating the database
     from .models import User, Note
     
     with app.app_context():
@@ -40,6 +41,7 @@ def create_app():
 
 
 def create_database(app):
+    # checks if the database exists
     if not path.exists('website/' + DB_NAME):
-        db.create_all(app=app)
+        db.create_all(app = app)
         print('Created Database!')
