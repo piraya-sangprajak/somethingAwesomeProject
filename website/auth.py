@@ -84,6 +84,7 @@ def sign_up():
         elif len(password1) < 8:
             flash('Password must be at least 8 characters.', category = 'error')
         else:
+            # password passes through a one-way hash function, so each password stored in the database is encrypted
             new_user = User(email = email, first_name = first_name, password = generate_password_hash(password1, method = 'pbkdf2:sha256'))
             db.session.add(new_user)
             db.session.commit()
