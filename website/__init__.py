@@ -11,6 +11,7 @@ def create_app():
     app = Flask(__name__)
     # encrypt or secure the cookie and session data related to our website
     app.config['SECRET_KEY'] = 'cookie yumyum njkbc$%$E56wsfn'
+    # store the database in our website
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     db.init_app(app)
 
