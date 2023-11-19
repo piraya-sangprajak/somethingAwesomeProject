@@ -22,16 +22,18 @@ def login():
         email = request.form.get('email')
         password = request.form.get('password')
 
+        # filters through all user email to check if they've an email
         user = User.query.filter_by(email = email).first()
         if user:
+            # checks if password hash matches the hash of the input password
             if check_password_hash(user.password, password):
                 flash('Logged in successfully!', category = 'success')
-                login_user(user, remember=True)
+                login_user(user, remember = True)
                 return redirect(url_for('views.home'))
             else:
-                flash('Incorrect password, try again.', category = 'error')
+                flash('Incorrect password, try again :(', category = 'error')
         else:
-            flash('Email does not exist.', category = 'error')
+            flash('Email does not exist :(', category = 'error')
 
     return render_template("login.html", user = current_user)
 
