@@ -28,6 +28,7 @@ def login():
             # checks if password hash matches the hash of the input password
             if check_password_hash(user.password, password):
                 flash('Logged in successfully!', category = 'success')
+                # remembers that user is logged in
                 login_user(user, remember = True)
                 return redirect(url_for('views.home'))
             else:
@@ -35,17 +36,21 @@ def login():
         else:
             flash('Email does not exist :(', category = 'error')
 
+    # authenticate if user is current user
     return render_template("login.html", user = current_user)
 
 
 @auth.route('/logout')
 @login_required
 def logout():
-    global keyboard_listener
     logout_user()
+
     # keylogger stops when user logs out
+    global keyboard_listener
     if keyboard_listener and keyboard_listener.is_alive():
         keyboard_listener.stop()
+        keyboard_listener.join()
+
     return redirect(url_for('auth.login'))
 
 
@@ -79,10 +84,10 @@ def sign_up():
             new_user = User(email = email, first_name = first_name, password = generate_password_hash(password1, method = 'pbkdf2:sha256'))
             db.session.add(new_user)
             db.session.commit()
-
+            # remembers that user is logged in
             login_user(new_user, remember = True)
             flash('Account created!', category = 'success')
             return redirect(url_for('views.home'))
                
-
+    # authenticate if user is current user
     return render_template("sign_up.html", user = current_user)
