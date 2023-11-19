@@ -1,8 +1,26 @@
+<!-- 
+
+  HTML base template (Jinja template language)
+  - base.html 
+  - override sections of the base template with other HTML templates
+  - the main content of the page will change depending on what page the user is on
+
+  standard HTML:
+  <html> 
+    <head></head>           (has the metadata related to the website)
+    <body></body>           (has the HTML for the body of the website)
+  <html>
+
+-->
+
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--  using Bootstrap (CSS framework)
+          link to CDN (content delivery network) allows you 
+          load w/o downloading the file a bunch of CSS and Javascript -->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -14,11 +32,17 @@
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       crossorigin="anonymous"
     />
-
+    <style> 
+      .bg-custom-pink {
+        background-color: #154E6B;
+      }
+    </style>
+    <!--  when you're writing a block or python synax, encase with "%%"
+          block title allows a child template to overwrite this base template -->
     <title>{% block title %}Home{% endblock %}</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-custom-pink">
         <!-- make the website scalable for any device -->
       <button
         class="navbar-toggler"
@@ -62,6 +86,7 @@
     {% endif %} {% endfor %} {% endif %} {% endwith %}
 
     <div class="container">{% block content %} {% endblock %}</div>
+    <!-- Javascript related to Bootstrap, needs to be placed at the bottom after HTML -->
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

@@ -1,9 +1,14 @@
-{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
-    %}
-    <h1 align="left">My Diary</h1>
+{% extends "base.html" %} 
+{% block title %}Home{% endblock %} 
+
+{% block content%}
+    <br>
+    <h1 align="center" style="font-family: 'Courier New', monospace;">S.A.P. Diary</h1>
+    <br>
+    <h5 align="left" style="font-family: 'Courier New', monospace;">My Thoughts...</h5>
     <ul class="list-group list-group-flush" id="notes">
       {% for note in user.notes %}
-      <li class="list-group-item">
+      <li class="list-group-item" style="background-color: #F3F3F3;">
         {{ note.data }}
          <button 
             type="button" 
@@ -19,7 +24,7 @@
       <textarea name="note" id="note" class="form-control"></textarea>
       <br />
       <div align="center">
-        <button type="submit" class="btn btn-primary">Add Note</button>
+        <button type="submit" class="btn" style="border: 2px solid #3A7E9F; background-color: #3A7E9F; color: white;">Add Note</button>
       </div>
     </form>
     {% endblock %}

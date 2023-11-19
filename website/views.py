@@ -1,3 +1,5 @@
+#### this file stores website root where users can go to ####
+
 from flask import Blueprint, render_template, request, flash, jsonify
 from flask_login import login_required, current_user
 from .models import Note
@@ -6,12 +8,11 @@ import json
 
 views = Blueprint('views', __name__)
 
-
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
     if request.method == 'POST': 
-        note = request.form.get('note')#Gets the note from the HTML 
+        note = request.form.get('note') #Gets the note from the HTML 
 
         if len(note) < 1:
             flash('Note is too short!', category='error') 

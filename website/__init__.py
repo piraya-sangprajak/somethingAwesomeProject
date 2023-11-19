@@ -18,7 +18,7 @@ def create_app():
     from .views import views
     from .auth import auth
 
-    # register our Blueprint
+    # register our Blueprint with Flask
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
 

